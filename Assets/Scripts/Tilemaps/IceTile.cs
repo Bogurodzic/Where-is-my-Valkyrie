@@ -29,7 +29,6 @@ public class IceTile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Destroy(gameObject);
         if (collision.gameObject.tag == "Player")
         {
             Vector3 hitPosition = Vector3.zero;
@@ -38,10 +37,6 @@ public class IceTile : MonoBehaviour
                 hitPosition.x = hit.point.x;
                 hitPosition.y = hit.point.y - 0.05f;
                 MakeEmptyTile(hitPosition);
-                Debug.Log("H:" + hitPosition);
-                Debug.Log("Con:" + hit.point);
-                Debug.Log("Coollision  " + _tilemap.WorldToCell(hitPosition));
-            
             }  
         }
 
@@ -57,10 +52,6 @@ public class IceTile : MonoBehaviour
                 hitPosition.x = hit.point.x;
                 hitPosition.y = hit.point.y - 0.05f;
                 MakeEmptyTile(hitPosition);
-                Debug.Log("H:" + hitPosition);
-                Debug.Log("Con:" + hit.point);
-                Debug.Log("Coollision  " + _tilemap.WorldToCell(hitPosition));
-            
             }  
         }
     }
