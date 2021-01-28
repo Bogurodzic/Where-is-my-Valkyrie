@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
 
     private Animator _playerAnimator;
-    // Start is called before the first frame update
+
+    private float _lastPlayerYPosition;
     void Start()
     {
         LoadComponents();
@@ -38,13 +39,38 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
+        
+        
         if (isGrounded)
         {
-            _playerAnimator.SetBool("isJumping", false);
+            HandlePlayerOnGround();
         } else
         {
-            _playerAnimator.SetBool("isJumping", true);
+            SwitchBetweenFallingAndJumping();
         }
+    }
+
+    private void HandlePlayerOnGround()
+    {
+        _playerAnimator.SetBool("isJumping", false);
+        _playerAnimator.SetBool("isFalling", false);
+        _playerAnimator.SetBool("isInAir", false);
+    }
+
+    private void SwitchBetweenFallingAndJumping()
+    {
+        if (transform.position.y > _lastPlayerYPosition)
+        {
+            _playerAnimator.SetBool("isJumping", true);
+            _playerAnimator.SetBool("isFalling", false);
+            _playerAnimator.SetBool("isInAir", true);        }
+        else if (transform.position.y < _lastPlayerYPosition)
+        {
+            _playerAnimator.SetBool("isJumping", false);
+            _playerAnimator.SetBool("isFalling", true);
+            _playerAnimator.SetBool("isInAir", true);        }
+
+        _lastPlayerYPosition = transform.position.y;
     }
 
     private void HandleMovement()
