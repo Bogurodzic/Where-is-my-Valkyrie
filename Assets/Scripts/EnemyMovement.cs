@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatrol : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
 
     public bool isPatroling, turn, isGrounded;
