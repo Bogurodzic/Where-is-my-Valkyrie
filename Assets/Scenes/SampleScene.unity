@@ -293,7 +293,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.33631945, y: 0.107005596}
+  m_Offset: {x: 0.027865682, y: 1.2675246}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -304,7 +304,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2164278, y: 0.018220425}
+  m_Size: {x: 0.1125919, y: 0.030436277}
   m_EdgeRadius: 0
 --- !u!114 &342804970
 MonoBehaviour:
@@ -488,7 +488,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  speed: 0
 --- !u!1 &575432983
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,18 +522,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.31818867, y: 0.47502184}
+  m_Offset: {x: 0.018896982, y: -0.0044553727}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.4, y: 2.51}
+    oldSize: {x: 0.2, y: 0.2}
     newSize: {x: 2.4, y: 2.51}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6732216, y: 1.5599566}
+  m_Size: {x: 0.1828714, y: 0.19787407}
   m_EdgeRadius: 0
 --- !u!50 &575432985
 Rigidbody2D:
@@ -596,7 +595,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2d7f0925a08c8948bac17869f2d06da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03e53c5fa4e2ef04aa8b05c89b3afb02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -615,8 +614,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575432983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.62, y: -8.24, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 342804968}
   m_Father: {fileID: 0}
@@ -650,9 +649,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.32291347, y: -0.4064893}
+  m_Offset: {x: 0.01, y: 0.02}
   serializedVersion: 2
-  m_Radius: 0.8525143
+  m_Radius: 0.094604276
 --- !u!1 &755264554
 GameObject:
   m_ObjectHideFlags: 0
