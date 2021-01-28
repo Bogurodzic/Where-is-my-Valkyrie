@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
 
     private Animator _playerAnimator;
-    // Start is called before the first frame update
+
+    private float _lastPlayerYPosition;
     void Start()
     {
         LoadComponents();
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Jump();
-
+        
     }
     void FixedUpdate()
     {
@@ -38,19 +39,49 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
-        if (isGrounded)
-        {
-            _playerAnimator.SetBool("isJumping", false);
-        } else
+
+        SwitchBetweenFallingAndJumping();
+    }
+
+    private void HandlePlayerOnGround()
+    {
+        _playerAnimator.SetBool("isJumping", false);
+        _playerAnimator.SetBool("isFalling", false);
+        _playerAnimator.SetBool("isInAir", false);
+    }
+
+    private void SwitchBetweenFallingAndJumping()
+    {
+        if (!isGrounded && transform.position.y > _lastPlayerYPosition)
         {
             _playerAnimator.SetBool("isJumping", true);
+            _playerAnimator.SetBool("isFalling", false);
+            _playerAnimator.SetBool("isInAir", true);        }
+        else if (!isGrounded && transform.position.y < _lastPlayerYPosition)
+        {
+            _playerAnimator.SetBool("isJumping", false);
+            _playerAnimator.SetBool("isFalling", true);
+            _playerAnimator.SetBool("isInAir", true);        
+        } else if (isGrounded)
+        {
+            HandlePlayerOnGround();
         }
+
+        _lastPlayerYPosition = transform.position.y;
     }
 
     private void HandleMovement()
     {
         if (Input.GetAxis("Horizontal") != 0)
         {
+            if (PlayerIsFacingRight())
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            else if (PlayerIsFacingLeft())
+            {
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
+            }
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             _playerAnimator.SetFloat("Speed", 1);
@@ -59,5 +90,15 @@ public class PlayerController : MonoBehaviour
             _playerAnimator.SetFloat("Speed", 0);
         }
 
+    }
+
+    private bool PlayerIsFacingRight()
+    {
+      return Input.GetAxis("Horizontal") > 0;
+    }
+    
+    private bool PlayerIsFacingLeft()
+    {
+        return Input.GetAxis("Horizontal") < 0;
     }
 }
