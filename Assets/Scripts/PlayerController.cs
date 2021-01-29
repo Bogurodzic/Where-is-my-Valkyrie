@@ -150,13 +150,17 @@ public class PlayerController : MonoBehaviour
 
     public void EnableGodMode()
     {
-        _godModeEnabled = true;
-        GameManager.Instance.EnableGodMode();
+        if (!_godModeEnabled)
+        {
+            _godModeEnabled = true;
+            GameManager.Instance.EnableGodMode();        
+        }
     }
 
     public void DisableGodMode()
     {
         _godModeEnabled = false;
+        GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
     }
     
     

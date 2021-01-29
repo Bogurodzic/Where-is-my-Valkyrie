@@ -90,6 +90,7 @@ public class GameManager : GenericSingletonClass<GameManager>
 
     public void EnableGodMode()
     {
+        Debug.Log("ENABLING GOD MODE");
         _currentGodModeTime = godModeTime;
         StartCoroutine(GodModeCountdown());
     }
