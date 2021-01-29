@@ -11,18 +11,13 @@ public class MenuAnimation : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        
-    }
-    
     public void PointerEnter()
     {   
-        _animator.SetBool("IsHighlited", true);
+        _animator.SetBool("isHover", true);
     }
  
     public void PointerExit()
     {
-        _animator.SetBool("IsHighlited", false);
+        _animator.SetBool("isHover", false);
     }
 }
