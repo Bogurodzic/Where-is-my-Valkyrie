@@ -52,7 +52,8 @@ public class EnemyMovement : MonoBehaviour
         {
             Debug.Log("Body COlider cos zlapal");
         }
-        
+
+        rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
 
     }
@@ -65,20 +66,32 @@ public class EnemyMovement : MonoBehaviour
     }
     void Patrol()
     {
-        if (turn && isGrounded || bodyCollider.IsTouchingLayers(groundLayer) || bodyCollider.IsTouching(bodyCollider))
+        if (isPatroling)
         {
-            Turn();
+            if (turn && isGrounded)
+            {
+                Turn();
+
+            }
             
         }
-        rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
 
    public void Turn()
     {
-        isPatroling = false;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        movementSpeed *= -1;
-        isPatroling = true;
+        if (isPatroling&&!isSleeping)
+        {
+            isPatroling = false;
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            movementSpeed *= -1;
+            isPatroling = true;
+            Debug.Log("Turning w patrolu");
+        }
+        else if(!isSleeping) {
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            movementSpeed *= -1;
+            Debug.Log("Turning bez patrolu");
+        }
 
     }
     void SleepEnemy()
@@ -120,11 +133,16 @@ public class EnemyMovement : MonoBehaviour
     {
         if (bodyCollision.collider.tag == "Enemy")
         {
-            Debug.Log("enemy na drodze");
+            
             Turn();
 
         }
+        if (bodyCollider.IsTouchingLayers(groundLayer))
+        {
+            Turn();
+        }
     }
+
 }
 
 
