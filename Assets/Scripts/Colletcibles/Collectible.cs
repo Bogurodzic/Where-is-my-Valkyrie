@@ -9,7 +9,7 @@ public class Collectible : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("TRIGGERED");
+           // Debug.Log("TRIGGERED");
             Collect();
             other.gameObject.GetComponent<PlayerController>().EnableAxeMode();
         }
