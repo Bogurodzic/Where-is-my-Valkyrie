@@ -5,76 +5,90 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 
-    public bool mustPatrol, mustSleep = false;
+    public bool mustPatrol, mustSleep = true;
     public float AwakeRange = 5f;
-    public bool turn, isGrounded = false;
-    public bool isPatroling = false;
-    public bool isSleeping = false;
+    bool turn, isPatroling, isSleeping = false;
+    public bool isGrounded=false;
+  
     public float movementSpeed = 200f;
     
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    private float _speed = 0f;
     protected GameObject Player;
-    float distanceToPlayer = 0f;
     public Collider2D bodyCollider;
+    private float _speed = 0f;
     
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
-        _speed = movementSpeed;
+        
 
 
-        LoadSettings();
+        LoadParameters();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        distanceToPlayer = transform.position.x - Player.transform.position.x;
-        //Debug.Log(distanceToPlayer);
-
-
-        if (distanceToPlayer < AwakeRange&&isSleeping)
+        if (isSleeping)
         {
-            AwakeEnemy();
-            isSleeping = false;
+            CheckForAwake();
+        }
 
+        if (!isSleeping) 
+        { 
+            if (isPatroling)
+            {
+                Patrol();
+            }
+
+            rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
         }
-        if (isPatroling)
-        {
-            Patrol();
-        }
-        
 
 
     }
     void FixedUpdate()
     {
-        if (isPatroling)
+        if (!isSleeping)
         {
-            turn = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            if (isPatroling)
+            {
+                turn = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            }
         }
     }
     void Patrol()
     {
-        if (turn && isGrounded || isGrounded && bodyCollider.IsTouchingLayers(groundLayer))
+        if (isPatroling)
         {
-            Turn();
-            Debug.Log("Turn chuju");
+            if (turn && isGrounded)
+            {
+                Turn();
+
+            }
+            
         }
-        rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
 
    public void Turn()
     {
-        isPatroling = false;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        movementSpeed *= -1;
-        isPatroling = true;
+        if (isPatroling&&!isSleeping)
+        {
+            isPatroling = false;
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            movementSpeed *= -1;
+            isPatroling = true;
+            
+        }
+        else if(!isSleeping) {
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            movementSpeed *= -1;
+            
+        }
 
     }
     void SleepEnemy()
@@ -82,19 +96,17 @@ public class EnemyMovement : MonoBehaviour
         isSleeping = true;
         _speed = movementSpeed;
         movementSpeed = 0f;
+        ;
     }
 
     void AwakeEnemy()
     {
-
-        
         movementSpeed = _speed;
-
+        isSleeping = false;
     }
-    void LoadSettings()
+    void LoadParameters()
     {
-        
-
+        _speed = movementSpeed;
         if (mustPatrol)
         {
             isPatroling = true;
@@ -107,7 +119,32 @@ public class EnemyMovement : MonoBehaviour
     public void Hurt()
     {
         //Destroy(this.gameObject);
-        Debug.Log("Enemy.Hurt");
+        
     }
+
+    void OnCollisionEnter2D(Collision2D bodyCollision)
+    {
+        if (bodyCollision.collider.tag == "Enemy")
+        {
+            
+            Turn();
+
+        }
+        if (bodyCollider.IsTouchingLayers(groundLayer))
+        {
+            Turn();
+        }
+    }
+    void CheckForAwake()
+    {
+       float distanceToPlayer = transform.position.x - Player.transform.position.x;
+        if (distanceToPlayer < AwakeRange && isSleeping)
+        {
+            AwakeEnemy();
+
+        }
+    }
+
 }
+
 
