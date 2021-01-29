@@ -13,6 +13,5 @@ public class AxeProjectile : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.right * Time.deltaTime * projectileSpeed);
-        Debug.Log(transform.rotation);
     }
 }

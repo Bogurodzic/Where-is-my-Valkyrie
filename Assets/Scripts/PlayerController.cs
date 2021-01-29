@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private float _lastPlayerYPosition;
 
     private bool _axeModeEnabled;
+    private bool _godModeEnabled;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -27,6 +29,11 @@ public class PlayerController : MonoBehaviour
     {
         Jump();
         HandleAxeMode();
+
+        if (_godModeEnabled && GameManager.Instance.GetRemainingGodModeTime() == 0)
+        {
+            DisableGodMode();
+        } 
 
     }
     void FixedUpdate()
@@ -139,6 +146,17 @@ public class PlayerController : MonoBehaviour
         _playerAnimator.SetBool("axeModeEnabled", false);
         GameManager.Instance.DisableAxeMode();
 
+    }
+
+    public void EnableGodMode()
+    {
+        _godModeEnabled = true;
+        GameManager.Instance.EnableGodMode();
+    }
+
+    public void DisableGodMode()
+    {
+        _godModeEnabled = false;
     }
     
     

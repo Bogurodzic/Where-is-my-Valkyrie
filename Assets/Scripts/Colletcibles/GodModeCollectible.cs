@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AxeCollectible : Collectible
+public class GodModeCollectible : Collectible
 {
     protected override void ExecuteCollectibleLogic(Collider2D collider)
     {
-        collider.gameObject.GetComponent<PlayerController>().EnableAxeMode();  
         Collect();
+        collider.gameObject.GetComponent<PlayerController>().EnableGodMode();  
     }
 }

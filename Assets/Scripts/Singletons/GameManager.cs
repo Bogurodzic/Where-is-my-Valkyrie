@@ -7,10 +7,12 @@ public class GameManager : GenericSingletonClass<GameManager>
 
     public int axeQuantityPerPowerup = 5;
     public int maxLives = 3;
+    public int godModeTime = 10;
     private int _axeQuantity = 0;
     private int _coins = 0;
     private int _currentLives;
     private float _timer;
+    private int _currentGodModeTime = 0;
     void Start()
     {
         _currentLives = maxLives;
@@ -86,5 +88,25 @@ public class GameManager : GenericSingletonClass<GameManager>
         return _timer;
     }
 
+    public void EnableGodMode()
+    {
+        _currentGodModeTime = godModeTime;
+        StartCoroutine(GodModeCountdown());
+    }
 
+    public int GetRemainingGodModeTime()
+    {
+        return _currentGodModeTime;
+    }
+    
+    protected IEnumerator GodModeCountdown()
+    {
+        for (int i = 0; i < godModeTime; i++)
+        {   
+            _currentGodModeTime -= 1;
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    
 }
