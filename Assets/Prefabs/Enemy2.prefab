@@ -273,10 +273,8 @@ MonoBehaviour:
   mustPatrol: 0
   mustSleep: 1
   AwakeRange: 5
-  turn: 0
   isGrounded: 0
-  isPatroling: 0
-  isSleeping: 0
+  healthPoints: 3
   movementSpeed: -200
   rb: {fileID: 4463811052101797774}
   groundCheck: {fileID: 4463811051412862245}
