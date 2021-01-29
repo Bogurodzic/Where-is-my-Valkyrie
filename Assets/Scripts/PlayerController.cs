@@ -9,9 +9,15 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
     Rigidbody2D rb;
 
+    public GameObject axePrefab;
+
     private Animator _playerAnimator;
 
     private float _lastPlayerYPosition;
+
+    private bool _axeModeEnabled;
+    private bool _godModeEnabled;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -22,12 +28,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Jump();
-        
+        HandleAxeMode();
+
+        if (_godModeEnabled && GameManager.Instance.GetRemainingGodModeTime() == 0)
+        {
+            DisableGodMode();
+        } 
+
     }
     void FixedUpdate()
     {
         HandleMovement();
-
     }
 
     private void LoadComponents()
@@ -104,6 +115,51 @@ public class PlayerController : MonoBehaviour
     {
         return Input.GetAxis("Horizontal") < 0;
     }
+
+    private void HandleAxeMode()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if (_axeModeEnabled && GameManager.Instance.TryToThrowAxe())
+            {
+                Instantiate(axePrefab, transform.position, transform.localRotation);
+            } 
+            
+            if (GameManager.Instance.GetAxeQuantity() == 0)
+            {
+                DisableAxeMode();
+            }
+        }
+        
+    }
+
+    public void EnableAxeMode()
+    {
+        _axeModeEnabled = true;
+        _playerAnimator.SetBool("axeModeEnabled", true);
+        GameManager.Instance.EnableAxeMode();
+    }
+    
+    public void DisableAxeMode()
+    {
+        _axeModeEnabled = false;
+        _playerAnimator.SetBool("axeModeEnabled", false);
+        GameManager.Instance.DisableAxeMode();
+
+    }
+
+    public void EnableGodMode()
+    {
+        _godModeEnabled = true;
+        GameManager.Instance.EnableGodMode();
+    }
+
+    public void DisableGodMode()
+    {
+        _godModeEnabled = false;
+    }
+    
+    
 
     public void Hurt()
     {

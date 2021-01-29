@@ -19,6 +19,6 @@ public class MenuStart : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Scenes/SampleScene");
+        SceneManager.LoadScene("Scenes/SampleScene1");
     }
 }
