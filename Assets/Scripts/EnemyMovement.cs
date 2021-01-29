@@ -5,35 +5,52 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 
-    public bool isPatroling, turn, isGrounded;
-    public float movementSpeed = 5f;
+    public bool mustPatrol, mustSleep = false;
+    public float AwakeRange = 5f;
+    public bool turn, isGrounded = false;
+    public bool isPatroling = false;
+    public bool isSleeping = false;
+    public float movementSpeed = 200f;
+    
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    public float speed = 0f;
+    private float _speed = 0f;
+    protected GameObject Player;
+    float distanceToPlayer = 0f;
+    public Collider2D bodyCollider;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = movementSpeed;
-        isPatroling = true;
+        Player = GameObject.Find("Player");
+        _speed = movementSpeed;
+
+
+        LoadSettings();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isGrounded)
+        distanceToPlayer = transform.position.x - Player.transform.position.x;
+        //Debug.Log(distanceToPlayer);
+
+
+        if (distanceToPlayer < AwakeRange&&isSleeping)
         {
-            movementSpeed = 0f;
-        }
-        if (isGrounded)
-        {
-            movementSpeed = speed;
+            AwakeEnemy();
+            isSleeping = false;
+
         }
         if (isPatroling)
         {
             Patrol();
         }
+        
+
+
     }
     void FixedUpdate()
     {
@@ -44,19 +61,53 @@ public class EnemyMovement : MonoBehaviour
     }
     void Patrol()
     {
-        if (turn&&isGrounded)
+        if (turn && isGrounded || isGrounded && bodyCollider.IsTouchingLayers(groundLayer))
         {
             Turn();
+            Debug.Log("Turn chuju");
         }
         rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
 
-    void Turn()
+   public void Turn()
     {
-                    isPatroling = false;
-            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-            movementSpeed *= -1;
-            isPatroling = true;
+        isPatroling = false;
+        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        movementSpeed *= -1;
+        isPatroling = true;
+
+    }
+    void SleepEnemy()
+    {
+        isSleeping = true;
+        _speed = movementSpeed;
+        movementSpeed = 0f;
+    }
+
+    void AwakeEnemy()
+    {
+
         
+        movementSpeed = _speed;
+
+    }
+    void LoadSettings()
+    {
+        
+
+        if (mustPatrol)
+        {
+            isPatroling = true;
+        }
+        if (mustSleep)
+        {
+            SleepEnemy();
+        }
+    }
+    public void Hurt()
+    {
+        //Destroy(this.gameObject);
+        Debug.Log("Enemy.Hurt");
     }
 }
+

@@ -7,12 +7,14 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
     public float jumpForce = 2f;
     public bool isGrounded = false;
+    Rigidbody2D rb;
 
     private Animator _playerAnimator;
 
     private float _lastPlayerYPosition;
     void Start()
     {
+        rb = gameObject.GetComponent<Rigidbody2D>();
         LoadComponents();
     }
 
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown("space") && isGrounded==true)
+        if (Input.GetKeyDown("space") && isGrounded == true)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
@@ -85,7 +87,8 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
             transform.position += movement * Time.deltaTime * movementSpeed;
             _playerAnimator.SetFloat("Speed", 1);
-        } else if (Input.GetAxis("Horizontal") == 0)
+        }
+        else if (Input.GetAxis("Horizontal") == 0)
         {
             _playerAnimator.SetFloat("Speed", 0);
         }
@@ -96,9 +99,38 @@ public class PlayerController : MonoBehaviour
     {
       return Input.GetAxis("Horizontal") > 0;
     }
-    
+
     private bool PlayerIsFacingLeft()
     {
         return Input.GetAxis("Horizontal") < 0;
+    }
+
+    public void Hurt()
+    {
+        Debug.Log("Player.Hurt()");
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        EnemyMovement enemy = collision.collider.GetComponent<EnemyMovement>();
+        if (enemy != null)
+        {
+            foreach (ContactPoint2D point in collision.contacts)
+            {
+                
+                Debug.DrawLine(point.point, point.point + point.normal, Color.red, 10);
+                if (point.normal.y >= 0.9f)
+                {
+                    Vector2 velocity = rb.velocity;
+                    velocity.y = jumpForce;
+                    rb.velocity = velocity;
+                    enemy.Hurt();
+                }
+                else
+                {
+                    Hurt();
+                }
+            }
+        }
     }
 }

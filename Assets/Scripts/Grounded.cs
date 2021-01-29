@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class Grounded : MonoBehaviour
 {
    
-   GameObject Player;
+   protected GameObject Character;
 
-    void Start()
+    protected void Start()
     {
-        Player = gameObject.transform.parent.gameObject;
-
-    
-        
+        Character = gameObject.transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -21,19 +19,26 @@ public class Grounded : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground") ;
+        HandleCollisionWithGround(collision);
+    }
+   protected virtual void HandleCollisionWithGround(Collision2D collision)
+    {
+        if (collision.collider.tag == "Ground")
         {
-            Player.GetComponent<PlayerController>().isGrounded = true;
+            
+            Character.GetComponent<PlayerController>().isGrounded = true;
         }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground") ;
+        if (collision.collider.tag == "Ground") 
         {
-            Player.GetComponent<PlayerController>().isGrounded = false;
+            
+            Character.GetComponent<PlayerController>().isGrounded = false;
         }
     }
 }
