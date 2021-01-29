@@ -34,8 +34,8 @@ public class IceTile : MonoBehaviour
             Vector3 hitPosition = Vector3.zero;
             foreach (ContactPoint2D hit in collision.contacts)
             {
-                hitPosition.x = hit.point.x;
-                hitPosition.y = hit.point.y - 0.05f;
+                hitPosition.x = hit.point.x - 0.1f;
+                hitPosition.y = hit.point.y - 0.1f;
                 MakeEmptyTile(hitPosition);
             }  
         }
@@ -49,8 +49,8 @@ public class IceTile : MonoBehaviour
             Vector3 hitPosition = Vector3.zero;
             foreach (ContactPoint2D hit in collision.contacts)
             {
-                hitPosition.x = hit.point.x;
-                hitPosition.y = hit.point.y - 0.05f;
+                hitPosition.x = hit.point.x - 0.1f;
+                hitPosition.y = hit.point.y - 0.1f;
                 MakeEmptyTile(hitPosition);
             }  
         }
@@ -60,23 +60,27 @@ public class IceTile : MonoBehaviour
     {
         Grid grid = transform.parent.GetComponentInParent<Grid>();
         Vector3Int cellPosition = grid.WorldToCell(pos);
-        bool canPlatformBeDestroyed = true;
-        
-        LinkedList<Vector3Int>.Enumerator alreadyDestroyedTilemapsEnumerator = _alreadyDestroyedTilemaps.GetEnumerator();
-        while (alreadyDestroyedTilemapsEnumerator.MoveNext())
+        if (_tilemap.GetTile(cellPosition))
         {
-            Vector3Int destroyedObstacleCellPosition = alreadyDestroyedTilemapsEnumerator.Current;
-            if (destroyedObstacleCellPosition == cellPosition)
-            {
-                canPlatformBeDestroyed = false;
-            }
-        } 
+            bool canPlatformBeDestroyed = true;
 
-        if (canPlatformBeDestroyed)
-        {
-            _alreadyDestroyedTilemaps.AddLast(cellPosition);
-            StartCoroutine(DestroyTileMap(cellPosition));
+            LinkedList<Vector3Int>.Enumerator alreadyDestroyedTilemapsEnumerator = _alreadyDestroyedTilemaps.GetEnumerator();
+            while (alreadyDestroyedTilemapsEnumerator.MoveNext())
+            {
+                Vector3Int destroyedObstacleCellPosition = alreadyDestroyedTilemapsEnumerator.Current;
+                if (destroyedObstacleCellPosition == cellPosition)
+                {
+                    canPlatformBeDestroyed = false;
+                }
+            } 
+
+            if (canPlatformBeDestroyed)
+            {
+                _alreadyDestroyedTilemaps.AddLast(cellPosition);
+                StartCoroutine(DestroyTileMap(cellPosition));
+            }
         }
+
 
     }
     
