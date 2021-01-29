@@ -9,20 +9,22 @@ public class EnemyMovement : MonoBehaviour
     public float AwakeRange = 5f;
     bool turn, isPatroling, isSleeping = false;
     public bool isGrounded=false;
-  
+    public float healthPoints = 1f;
     public float movementSpeed = 200f;
-    
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
     protected GameObject Player;
     public Collider2D bodyCollider;
     private float _speed = 0f;
-    
+    Animator m_Animator;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        m_Animator = gameObject.GetComponent<Animator>();
         Player = GameObject.Find("Player");
         
 
@@ -48,6 +50,8 @@ public class EnemyMovement : MonoBehaviour
 
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
         }
+
+  
 
 
     }
@@ -118,8 +122,20 @@ public class EnemyMovement : MonoBehaviour
     }
     public void Hurt()
     {
-        //Destroy(this.gameObject);
-        
+        if (healthPoints > 2)
+        {
+           
+
+            m_Animator.SetTrigger("got_hit");
+            m_Animator.SetBool("already_hit", true);
+            
+        }
+        healthPoints = healthPoints - 1;
+        //Debug.Log(healthPoints);
+        if (healthPoints == 0)
+            { 
+            Destroy(this.gameObject);
+            }
     }
 
     void OnCollisionEnter2D(Collision2D bodyCollision)
@@ -148,6 +164,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
     }
+
 
 }
 
