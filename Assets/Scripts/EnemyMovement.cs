@@ -7,61 +7,58 @@ public class EnemyMovement : MonoBehaviour
 
     public bool mustPatrol, mustSleep = true;
     public float AwakeRange = 5f;
-    public bool turn, isGrounded = false;
-    public bool isPatroling,isSleeping = false;
+    bool turn, isPatroling, isSleeping = false;
+    public bool isGrounded=false;
+  
     public float movementSpeed = 200f;
     
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    private float _speed = 0f;
     protected GameObject Player;
-    float distanceToPlayer = 0f;
     public Collider2D bodyCollider;
+    private float _speed = 0f;
     
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
-        _speed = movementSpeed;
+        
 
 
-        LoadSettings();
+        LoadParameters();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        distanceToPlayer = transform.position.x - Player.transform.position.x;
-        //Debug.Log(distanceToPlayer);
-
-
-        if (distanceToPlayer < AwakeRange&&isSleeping)
+        if (isSleeping)
         {
-            AwakeEnemy();
-            isSleeping = false;
-
-        }
-        if (isPatroling)
-        {
-            Patrol();
+            CheckForAwake();
         }
 
-        if (bodyCollider.IsTouching(bodyCollider))
-        {
-            Debug.Log("Body COlider cos zlapal");
-        }
+        if (!isSleeping) 
+        { 
+            if (isPatroling)
+            {
+                Patrol();
+            }
 
-        rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
+        }
 
 
     }
     void FixedUpdate()
     {
-        if (isPatroling)
+        if (!isSleeping)
         {
-            turn = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            if (isPatroling)
+            {
+                turn = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            }
         }
     }
     void Patrol()
@@ -104,16 +101,12 @@ public class EnemyMovement : MonoBehaviour
 
     void AwakeEnemy()
     {
-
-        
         movementSpeed = _speed;
-        
-
+        isSleeping = false;
     }
-    void LoadSettings()
+    void LoadParameters()
     {
-        
-
+        _speed = movementSpeed;
         if (mustPatrol)
         {
             isPatroling = true;
@@ -140,6 +133,15 @@ public class EnemyMovement : MonoBehaviour
         if (bodyCollider.IsTouchingLayers(groundLayer))
         {
             Turn();
+        }
+    }
+    void CheckForAwake()
+    {
+       float distanceToPlayer = transform.position.x - Player.transform.position.x;
+        if (distanceToPlayer < AwakeRange && isSleeping)
+        {
+            AwakeEnemy();
+
         }
     }
 
