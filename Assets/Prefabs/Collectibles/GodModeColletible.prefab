@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6a67a099d6f754d0195567645157114c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83e0f0c6e8375457fb132482dd775d4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,18 +96,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.001387395, y: -0.002774626}
+  m_Offset: {x: 0.0013873875, y: 0.01111402}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.38, y: 0.36}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.38, y: 0.36}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.39232385, y: 0.37844974}
+  m_Size: {x: 0.13677344, y: 0.21734238}
   m_EdgeRadius: 0
 --- !u!114 &1112672558958432143
 MonoBehaviour:

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1682735967666710438}
   - component: {fileID: 1682735967666710437}
-  - component: {fileID: 1682735967666710436}
   - component: {fileID: 1682735967666710439}
+  - component: {fileID: 1222861342}
   m_Layer: 0
   m_Name: AxeCollectible
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1682735967666710435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -27.62, y: -8.03, z: -0.45910075}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 5.5529065, y: 5.5529065, z: 5.5529065}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,18 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1682735967666710436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682735967666710435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f83f81588d5104d45b7beadbd67e4839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1682735967666710439
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -121,3 +109,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.11, y: 0.09}
   m_EdgeRadius: 0
+--- !u!114 &1222861342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682735967666710435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1019db07cb04225807692dca76c841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
