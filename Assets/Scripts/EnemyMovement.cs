@@ -137,12 +137,16 @@ public class EnemyMovement : MonoBehaviour
     }
     void CheckForAwake()
     {
-       float distanceToPlayer = transform.position.x - Player.transform.position.x;
-        if (distanceToPlayer < AwakeRange && isSleeping)
+        if (Player)
         {
-            AwakeEnemy();
+            float distanceToPlayer = transform.position.x - Player.transform.position.x;
+            if (distanceToPlayer < AwakeRange && isSleeping)
+            {
+                AwakeEnemy();
 
+            }
         }
+
     }
 
 }

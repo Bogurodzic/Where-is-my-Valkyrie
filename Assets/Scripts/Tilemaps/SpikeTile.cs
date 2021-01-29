@@ -28,11 +28,17 @@ public class SpikeTile : MonoBehaviour
             foreach (ContactPoint2D hit in collision.contacts)
             {
                 hitPosition.x = hit.point.x;
-                hitPosition.y = hit.point.y -0.05f;
+                hitPosition.y = hit.point.y + 0.05f;
                 
                 if (CheckIfTileHasSpike(hitPosition))
                 {
-                    Destroy(collision.gameObject);
+                    if (collision.gameObject)
+                    {
+                        Destroy(collision.gameObject);
+                    }
+                    
+
+
                 }
             }  
         }
@@ -47,12 +53,17 @@ public class SpikeTile : MonoBehaviour
             foreach (ContactPoint2D hit in collision.contacts)
             {
                 hitPosition.x = hit.point.x;
-                hitPosition.y = hit.point.y -0.05f;
+                hitPosition.y = hit.point.y + 0.05f;
                 
                 if (CheckIfTileHasSpike(hitPosition))
                 {
-                    Destroy(collision.gameObject);
-                }
+                    
+                    if (collision.gameObject)
+                    {
+                        Destroy(collision.gameObject);
+                    }
+                        
+                }               
             }  
         }
     }
