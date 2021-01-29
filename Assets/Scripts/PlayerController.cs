@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private Animator _playerAnimator;
 
     private float _lastPlayerYPosition;
+
+    private bool _axeModeEnabled;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -104,6 +106,21 @@ public class PlayerController : MonoBehaviour
     {
         return Input.GetAxis("Horizontal") < 0;
     }
+
+    public void EnableAxeMode()
+    {
+        _axeModeEnabled = true;
+        _playerAnimator.SetBool("axeModeEnabled", true);
+    }
+    
+    public void DisableAxeMode()
+    {
+        _axeModeEnabled = false;
+        _playerAnimator.SetBool("axeModeEnabled", false);
+
+    }
+    
+    
 
     public void Hurt()
     {
