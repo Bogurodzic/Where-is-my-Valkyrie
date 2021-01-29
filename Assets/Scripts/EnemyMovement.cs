@@ -85,12 +85,12 @@ public class EnemyMovement : MonoBehaviour
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             movementSpeed *= -1;
             isPatroling = true;
-            Debug.Log("Turning w patrolu");
+            
         }
         else if(!isSleeping) {
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             movementSpeed *= -1;
-            Debug.Log("Turning bez patrolu");
+            
         }
 
     }
@@ -99,7 +99,7 @@ public class EnemyMovement : MonoBehaviour
         isSleeping = true;
         _speed = movementSpeed;
         movementSpeed = 0f;
-        Debug.Log("Sleeping");
+        ;
     }
 
     void AwakeEnemy()
@@ -107,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
 
         
         movementSpeed = _speed;
-        Debug.Log("Awaking");
+        
 
     }
     void LoadSettings()
@@ -126,7 +126,7 @@ public class EnemyMovement : MonoBehaviour
     public void Hurt()
     {
         //Destroy(this.gameObject);
-        Debug.Log("Enemy.Hurt");
+        
     }
 
     void OnCollisionEnter2D(Collision2D bodyCollision)
