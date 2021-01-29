@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D collider)
     {
-        if (other.tag == "Player")
+        if (collider.tag == "Player")
         {
-           // Debug.Log("TRIGGERED");
-            Collect();
-            other.gameObject.GetComponent<PlayerController>().EnableAxeMode();
+            ExecuteCollectibleLogic(collider);
         }
     }
 
-    protected void Collect()
+    protected virtual void ExecuteCollectibleLogic(Collider2D collider)
+    {
+        Collect();
+    }
+
+    protected virtual void Collect()
     {
         Destroy(gameObject);
     }

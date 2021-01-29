@@ -21,3 +21,5 @@ public class AxeQuantity : MonoBehaviour
         _text.text = "x" + GameManager.Instance.GetAxeQuantity();
     }
 }
+
+

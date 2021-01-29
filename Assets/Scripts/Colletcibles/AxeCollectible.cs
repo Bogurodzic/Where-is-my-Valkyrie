@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class MenuStart : MonoBehaviour
+public class AxeCollectible : Collectible
 {
     // Start is called before the first frame update
     void Start()
@@ -17,8 +16,9 @@ public class MenuStart : MonoBehaviour
         
     }
 
-    public void StartGame()
+    protected override void ExecuteCollectibleLogic(Collider2D collider)
     {
-        SceneManager.LoadScene("Scenes/SampleScene1");
+        collider.gameObject.GetComponent<PlayerController>().EnableAxeMode();  
+        Collect();
     }
 }

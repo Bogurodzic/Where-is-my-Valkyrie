@@ -7,6 +7,7 @@ public class GameManager : GenericSingletonClass<GameManager>
 
     public int axeQuantityPerPowerup = 5;
     private int _axeQuantity = 0;
+    private int _coins = 0;
     void Start()
     {
         
@@ -42,6 +43,16 @@ public class GameManager : GenericSingletonClass<GameManager>
         {
             return false;
         }
+    }
+
+    public void AddCoin()
+    {
+        _coins += 1;
+    }
+
+    public int GetCoins()
+    {
+        return _coins;
     }
 
 
