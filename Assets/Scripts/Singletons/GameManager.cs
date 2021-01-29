@@ -10,6 +10,7 @@ public class GameManager : GenericSingletonClass<GameManager>
     private int _axeQuantity = 0;
     private int _coins = 0;
     private int _currentLives;
+    private float _timer;
     void Start()
     {
         _currentLives = maxLives;
@@ -73,6 +74,16 @@ public class GameManager : GenericSingletonClass<GameManager>
         {
             return false;
         }
+    }
+
+    public void SetTimer(float time)
+    {
+        _timer = time;
+    }
+
+    public float GetTimer()
+    {
+        return _timer;
     }
 
 
