@@ -10,12 +10,16 @@ public class EnemyGrounded : Grounded
     {
         if (collision.collider.tag == "Ground")
         {
-            Character.GetComponent<EnemyMovement>().isGrounded = true;
+            //Character.GetComponent<EnemyMovement>().isGrounded = true;
+            Debug.Log("Sciana na drodze");
+            Character.GetComponent<EnemyMovement>().Turn();
+            
         }
         if (collision.collider.tag == "Enemy")
-        {   
-            Character.GetComponent<EnemyMovement>().Turn();
+        {
             Debug.Log("enemy na drodze");
+            Character.GetComponent<EnemyMovement>().Turn();
+            
         }
 
 

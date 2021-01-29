@@ -5,11 +5,10 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 
-    public bool mustPatrol, mustSleep = false;
+    public bool mustPatrol, mustSleep = true;
     public float AwakeRange = 5f;
     public bool turn, isGrounded = false;
-    public bool isPatroling = false;
-    public bool isSleeping = false;
+    public bool isPatroling,isSleeping = false;
     public float movementSpeed = 200f;
     
     public Rigidbody2D rb;
@@ -48,6 +47,11 @@ public class EnemyMovement : MonoBehaviour
         {
             Patrol();
         }
+
+        if (bodyCollider.IsTouching(bodyCollider))
+        {
+            Debug.Log("Body COlider cos zlapal");
+        }
         
 
 
@@ -61,10 +65,10 @@ public class EnemyMovement : MonoBehaviour
     }
     void Patrol()
     {
-        if (turn && isGrounded || isGrounded && bodyCollider.IsTouchingLayers(groundLayer))
+        if (turn && isGrounded || bodyCollider.IsTouchingLayers(groundLayer) || bodyCollider.IsTouching(bodyCollider))
         {
             Turn();
-            Debug.Log("Turn chuju");
+            
         }
         rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
@@ -82,6 +86,7 @@ public class EnemyMovement : MonoBehaviour
         isSleeping = true;
         _speed = movementSpeed;
         movementSpeed = 0f;
+        Debug.Log("Sleeping");
     }
 
     void AwakeEnemy()
@@ -89,6 +94,7 @@ public class EnemyMovement : MonoBehaviour
 
         
         movementSpeed = _speed;
+        Debug.Log("Awaking");
 
     }
     void LoadSettings()
@@ -109,5 +115,16 @@ public class EnemyMovement : MonoBehaviour
         //Destroy(this.gameObject);
         Debug.Log("Enemy.Hurt");
     }
+
+    void OnCollisionEnter2D(Collision2D bodyCollision)
+    {
+        if (bodyCollision.collider.tag == "Enemy")
+        {
+            Debug.Log("enemy na drodze");
+            Turn();
+
+        }
+    }
 }
+
 
