@@ -65,6 +65,11 @@ public class GameManager : GenericSingletonClass<GameManager>
         return _currentLives;
     }
 
+    public void AddLife()
+    {
+        _currentLives += 1;
+    }
+
     public bool TryRespawnPlayer()
     {
         if (_currentLives > 0)
