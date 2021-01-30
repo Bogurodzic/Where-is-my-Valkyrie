@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private bool _deathInitialised;
     private bool _deathCompleted;
-    private SpriteRenderer _sprite;
+
+
 
     void Start()
     {
@@ -32,8 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         Jump();
         HandleAxeMode();
-        //_sprite.color = new Color (0, 0, 0, 0);
-        
+
         if (_godModeEnabled && GameManager.Instance.GetRemainingGodModeTime() == 0)
         {
             DisableGodMode();
@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
     private void LoadComponents()
     {
         _playerAnimator = GetComponent<Animator>();
-        _sprite = GetComponent<SpriteRenderer>();
     }
 
     void Jump()
@@ -199,7 +198,7 @@ public class PlayerController : MonoBehaviour
             _playerAnimator.Play("Base Layer.player_death", 0, 0);
             _deathInitialised = true;
             _playerAnimator.SetBool("deathInitialised", true);
-            Invoke("CompleteDeath", 2);       
+            Invoke("CompleteDeath", 1);       
         }
     }
 
