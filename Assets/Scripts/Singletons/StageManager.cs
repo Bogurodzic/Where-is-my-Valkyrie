@@ -11,7 +11,8 @@ public class StageManager : GenericSingletonClass<StageManager>
     public String mainMenu;
     public String gameOver;
     public String choosingValkyrie;
-    
+    public String endingScreen;
+
     public String prologText;
     public String epilogueText;
     public String levelText;
@@ -68,6 +69,13 @@ public class StageManager : GenericSingletonClass<StageManager>
     {
         SceneTransitionSettings.NextTransitionScene = TransitionScene.Epilogue;
         LoadTransitionScene();
+        Invoke("LoadEndingScreen", 6);
+    }
+
+    public void LoadEndingScreen()
+    {
+        SceneManager.LoadScene(endingScreen);
+        TrackManager.Instance.PlayEpilogueTheme();
     }
     
 
