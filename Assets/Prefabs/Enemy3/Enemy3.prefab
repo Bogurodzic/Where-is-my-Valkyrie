@@ -186,9 +186,9 @@ MonoBehaviour:
   mustPatrol: 1
   mustSleep: 1
   rangedEnemy: 0
-  fireballPrefab: {fileID: 0}
   isGrounded: 0
   healthPoints: 1
+  movementSpeed: 200
   rb: {fileID: 7870435299151657605}
   groundCheck: {fileID: 7870435300001255208}
   groundLayer:
@@ -196,6 +196,9 @@ MonoBehaviour:
     m_Bits: 256
   Player: {fileID: 0}
   bodyCollider: {fileID: 7870435299151657604}
+  m_Animator: {fileID: 0}
+  isFacingLeft: 0
+  isFacingRight: 0
 --- !u!114 &-3831670145629243480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e126fd6cd9d0c33439bf91e00e5a6193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 0}
+  enemyMovement: {fileID: 0}
+  fireballPrefab: {fileID: 5957459350576202848, guid: c0be17006b1896145a9664526310b5a7,
+    type: 3}
 --- !u!1 &7870435300001255209
 GameObject:
   m_ObjectHideFlags: 0

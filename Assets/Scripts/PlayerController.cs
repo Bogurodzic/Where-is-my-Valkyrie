@@ -161,16 +161,27 @@ public class PlayerController : MonoBehaviour
     public void DisableGodMode()
     {
         _godModeEnabled = false;
-        GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
-
     }
     
     
 
     public void Hurt()
     {
-        Debug.Log("Player.Hurt()");
+        if (GameManager.Instance.TryRespawnPlayer())
+        {
+            RespawnPlayer();
+        }
+        else
+        {
+            StageManager.Instance.GoToGameOverScreen();
+        }
     }
+
+    public void RespawnPlayer()
+    {
+        GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
+    }
+    
 
     void OnCollisionEnter2D(Collision2D collision)
     {
