@@ -38,7 +38,7 @@ public class StageManager : GenericSingletonClass<StageManager>
         Debug.Log("Playing first level 1");
         _currentLevel = 1;
         LoadTransitionScene();
-        Invoke("HandleRestartingCurrentLevel", 6);
+        Invoke("HandleRestartingCurrentLevel", 12);
     }
     
     private void LoadTransitionScene()
@@ -69,7 +69,7 @@ public class StageManager : GenericSingletonClass<StageManager>
     {
         SceneTransitionSettings.NextTransitionScene = TransitionScene.Epilogue;
         LoadTransitionScene();
-        Invoke("LoadEndingScreen", 6);
+        Invoke("LoadEndingScreen", 12);
     }
 
     public void LoadEndingScreen()
