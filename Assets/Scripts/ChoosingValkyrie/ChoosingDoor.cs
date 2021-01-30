@@ -8,14 +8,16 @@ public class ChoosingDoor : MonoBehaviour
     public GameObject arrow;
 
     private int _doorActive = 1;
+    private bool _choosingAvailable = false;
+    private bool _isChoosed = false;
     void Start()
     {
-       
+       Invoke("UnlockChoosing", 2.35f);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && !_isChoosed && _choosingAvailable)
         {
             if (_doorActive == 1)
             {
@@ -30,7 +32,7 @@ public class ChoosingDoor : MonoBehaviour
         }
         
         
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow)  && !_isChoosed && _choosingAvailable)
         {
             if (_doorActive == 3)
             {
@@ -43,6 +45,29 @@ public class ChoosingDoor : MonoBehaviour
 
             SetArrowOnDoor(_doorActive);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !_isChoosed && _choosingAvailable)
+        {
+            ChooseCurrentDoor();
+        }
+    }
+
+    private void UnlockChoosing()
+    {
+        _choosingAvailable = true;
+        arrow.GetComponent<Animator>().SetBool("isActive", true);
+    }
+
+    private void ChooseCurrentDoor()
+    {
+        _isChoosed = true;
+        valkyrieDoors[_doorActive - 1].GetComponent<Animator>().SetBool("isChoosed", true);
+        Invoke("EndStage", 7.5f);
+    }
+
+    private void EndStage()
+    {
+        StageManager.Instance.HandleEndingGame();
     }
 
     private void SetArrowOnDoor(int doorNumber)

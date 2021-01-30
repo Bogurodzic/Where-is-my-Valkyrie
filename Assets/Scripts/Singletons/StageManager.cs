@@ -54,15 +54,21 @@ public class StageManager : GenericSingletonClass<StageManager>
         }
         else
         {
-            HandleEndingGame();
+            LoadChoosingValkyrie();
         }
     }
 
-    private void HandleEndingGame()
+    private void LoadChoosingValkyrie()
+    {
+        
+    }
+
+    public void HandleEndingGame()
     {
         SceneTransitionSettings.NextTransitionScene = TransitionScene.Epilogue;
         LoadTransitionScene();
     }
+    
 
     public void HandleRestartingCurrentLevel()
     {

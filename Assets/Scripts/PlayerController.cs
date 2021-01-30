@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown("space") && isGrounded == true)
+        if (Input.GetKeyDown("space") && isGrounded == true && !isBlocked)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
