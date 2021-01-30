@@ -9,10 +9,11 @@ public class GameManager : GenericSingletonClass<GameManager>
     public int maxLives = 3;
     public int godModeTime = 10;
     public int coinsRequiredForAdditionalLife = 10;
-    public float enemyAttackRange = 1f;
-    public float awakeRange = 2f;
+    public float enemyAttackRange = 10f;
+    public float awakeRange = 20f;
     public float enemyMovementSpeed = -200f;
     public float fireBallProjectileSpeed = 1f;
+    public float timeBetweenAttack = 2f;
 
 
     private int _axeQuantity = 0;
