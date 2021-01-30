@@ -722,6 +722,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1921208332875603043, guid: 12c094edd15d24957957e498d680b701,
+        type: 3}
+      propertyPath: choosingValkyrie
+      value: FinalStage
+      objectReference: {fileID: 0}
     - target: {fileID: 1921208332875603052, guid: 12c094edd15d24957957e498d680b701,
         type: 3}
       propertyPath: m_RootOrder

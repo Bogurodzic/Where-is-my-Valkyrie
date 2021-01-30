@@ -10,7 +10,8 @@ public class StageManager : GenericSingletonClass<StageManager>
     public String[] levels;
     public String mainMenu;
     public String gameOver;
-
+    public String choosingValkyrie;
+    
     public String prologText;
     public String epilogueText;
     public String levelText;
@@ -60,7 +61,7 @@ public class StageManager : GenericSingletonClass<StageManager>
 
     private void LoadChoosingValkyrie()
     {
-        
+        SceneManager.LoadScene(choosingValkyrie);
     }
 
     public void HandleEndingGame()
