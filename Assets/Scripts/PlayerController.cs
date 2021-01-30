@@ -18,13 +18,14 @@ public class PlayerController : MonoBehaviour
     private bool _axeModeEnabled;
     private bool _godModeEnabled;
 
+    private bool _deathInitialised;
+    private bool _deathCompleted;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         LoadComponents();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Jump();
@@ -33,7 +34,24 @@ public class PlayerController : MonoBehaviour
         if (_godModeEnabled && GameManager.Instance.GetRemainingGodModeTime() == 0)
         {
             DisableGodMode();
-        } 
+        }
+
+        if (_deathInitialised && _deathCompleted)
+        {
+            if (GameManager.Instance.TryRespawnPlayer())
+            {
+                RespawnPlayer();
+                _deathInitialised = false;
+                _deathCompleted = false;
+                _playerAnimator.SetBool("deathInitialised", false);
+            } else
+            {
+                StageManager.Instance.GoToGameOverScreen();
+                _deathInitialised = false;
+                _deathCompleted = false;
+                _playerAnimator.SetBool("deathInitialised", false);
+            }
+        }
 
     }
     void FixedUpdate()
@@ -167,14 +185,25 @@ public class PlayerController : MonoBehaviour
 
     public void Hurt()
     {
-        if (GameManager.Instance.TryRespawnPlayer())
+        InitDeath();
+    }
+
+    private void InitDeath()
+    {
+        if (!_deathInitialised)
         {
-            RespawnPlayer();
+            _playerAnimator.Play("Base Layer.player_death", 0, 0);
+            _deathInitialised = true;
+            _playerAnimator.SetBool("deathInitialised", true);
+            Invoke("CompleteDeath", 2);       
         }
-        else
-        {
-            StageManager.Instance.GoToGameOverScreen();
-        }
+    }
+
+    private void CompleteDeath()
+    {
+        _deathCompleted = true;
+        _playerAnimator.SetBool("deathInitialised", false);
+
     }
 
     public void RespawnPlayer()
