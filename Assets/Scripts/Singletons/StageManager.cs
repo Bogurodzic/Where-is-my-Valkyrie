@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SceneTransition;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,10 @@ public class StageManager : GenericSingletonClass<StageManager>
     public String[] levels;
     public String mainMenu;
     public String gameOver;
+
+    public String prologText;
+    public String epilogueText;
+    public String levelText;
     
     private int _currentLevel = 1;
     private int _lastLevelNumber;
@@ -26,10 +31,19 @@ public class StageManager : GenericSingletonClass<StageManager>
 
     public void GoToFirstStage()
     {
+        SceneTransitionSettings.NextTransitionScene = TransitionScene.Prologue;
+        
         Debug.Log("Playing first level 1");
         _currentLevel = 1;
-        SceneManager.LoadScene(levels[_currentLevel - 1]);
+        LoadTransitionScene();
+        Invoke("RestartCurrentLevel", 6);
     }
+
+    private void LoadTransitionScene()
+    {
+        SceneManager.LoadScene("TransitionScene");
+    }
+    
 
     public void GoToNextLevel()
     {

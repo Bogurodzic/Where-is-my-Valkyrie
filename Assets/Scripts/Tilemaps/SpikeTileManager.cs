@@ -64,45 +64,49 @@ public class SpikeTileManager : MonoBehaviour
 
     private void ChangeSpikePhase()
     {
-        for(int x = spikeMap.cellBounds.min.x; x< spikeMap.cellBounds.max.x;x++){
-            for(int y = spikeMap.cellBounds.min.y; y< spikeMap.cellBounds.max.y;y++){
-                for(int z= spikeMap.cellBounds.min.z; z< spikeMap.cellBounds.max.z;z++){
+        if (spikeMap)
+        {
+              for(int x = spikeMap.cellBounds.min.x; x< spikeMap.cellBounds.max.x;x++){
+                for(int y = spikeMap.cellBounds.min.y; y< spikeMap.cellBounds.max.y;y++){
+                    for(int z= spikeMap.cellBounds.min.z; z< spikeMap.cellBounds.max.z;z++){
 
-                    if (spikeMap.GetTile(new Vector3Int(x, y, z)) && spikeMap.GetTile(new Vector3Int(x, y, z)).name == "ground_for_spikes")
-                    {
-                        Vector3Int newSpikePosition = new Vector3Int(x, y + 1, z);
-                        if (_currentSpikePhase == 0)
+                        if (spikeMap.GetTile(new Vector3Int(x, y, z)) && spikeMap.GetTile(new Vector3Int(x, y, z)).name == "ground_for_spikes")
                         {
-                            spikeMap.SetTile(newSpikePosition, null);
-                            AddSpikeTiles(newSpikePosition, false);
-                        } else if (_currentSpikePhase == 1)
-                        {
-                            spikeMap.SetTile(newSpikePosition, phase1Spike);
-                            AddSpikeTiles(newSpikePosition, true);
-                        } else if (_currentSpikePhase == 2)
-                        {
-                            spikeMap.SetTile(newSpikePosition, phase2Spike);
-                            AddSpikeTiles(newSpikePosition, true);
-                        } else if (_currentSpikePhase == 3)
-                        {
-                            spikeMap.SetTile(newSpikePosition, phase3Spike);
-                            AddSpikeTiles(newSpikePosition, true);
-                        } else if (_currentSpikePhase == 4)
-                        {
-                            spikeMap.SetTile(newSpikePosition, phase2Spike);
-                            AddSpikeTiles(newSpikePosition, true);
+                            Vector3Int newSpikePosition = new Vector3Int(x, y + 1, z);
+                            if (_currentSpikePhase == 0)
+                            {
+                                spikeMap.SetTile(newSpikePosition, null);
+                                AddSpikeTiles(newSpikePosition, false);
+                            } else if (_currentSpikePhase == 1)
+                            {
+                                spikeMap.SetTile(newSpikePosition, phase1Spike);
+                                AddSpikeTiles(newSpikePosition, true);
+                            } else if (_currentSpikePhase == 2)
+                            {
+                                spikeMap.SetTile(newSpikePosition, phase2Spike);
+                                AddSpikeTiles(newSpikePosition, true);
+                            } else if (_currentSpikePhase == 3)
+                            {
+                                spikeMap.SetTile(newSpikePosition, phase3Spike);
+                                AddSpikeTiles(newSpikePosition, true);
+                            } else if (_currentSpikePhase == 4)
+                            {
+                                spikeMap.SetTile(newSpikePosition, phase2Spike);
+                                AddSpikeTiles(newSpikePosition, true);
 
-                        } else if (_currentSpikePhase == 5)
-                        {
-                            spikeMap.SetTile(newSpikePosition, phase1Spike);
-                            AddSpikeTiles(newSpikePosition, true);
-                        } else if (_currentSpikePhase == 6)
-                        {
-                            spikeMap.SetTile(newSpikePosition, null);
-                            AddSpikeTiles(newSpikePosition, false);
+                            } else if (_currentSpikePhase == 5)
+                            {
+                                spikeMap.SetTile(newSpikePosition, phase1Spike);
+                                AddSpikeTiles(newSpikePosition, true);
+                            } else if (_currentSpikePhase == 6)
+                            {
+                                spikeMap.SetTile(newSpikePosition, null);
+                                AddSpikeTiles(newSpikePosition, false);
+                            }
                         }
                     }
-                }}
+                }
+              }
         }
     }
 
