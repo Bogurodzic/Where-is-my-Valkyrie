@@ -34,7 +34,7 @@ public class SpikeTile : MonoBehaviour
                 {
                     if (collision.gameObject)
                     {
-                        Destroy(collision.gameObject);
+                        collision.gameObject.GetComponent<PlayerController>().Hurt();
                     }
                     
 
@@ -60,7 +60,7 @@ public class SpikeTile : MonoBehaviour
                     
                     if (collision.gameObject)
                     {
-                        Destroy(collision.gameObject);
+                        collision.gameObject.GetComponent<PlayerController>().Hurt();
                     }
                         
                 }               

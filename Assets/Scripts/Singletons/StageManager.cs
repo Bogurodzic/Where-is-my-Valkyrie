@@ -9,6 +9,10 @@ public class StageManager : GenericSingletonClass<StageManager>
     public String[] levels;
     public String mainMenu;
     public String gameOver;
+
+    public String prologText;
+    public String epilogueText;
+    public String levelText;
     
     private int _currentLevel = 1;
     private int _lastLevelNumber;
