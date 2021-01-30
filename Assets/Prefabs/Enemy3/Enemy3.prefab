@@ -186,6 +186,7 @@ MonoBehaviour:
   mustPatrol: 1
   mustSleep: 1
   rangedEnemy: 0
+  isSleeping: 1
   isGrounded: 0
   healthPoints: 1
   movementSpeed: 200
@@ -196,9 +197,11 @@ MonoBehaviour:
     m_Bits: 256
   Player: {fileID: 0}
   bodyCollider: {fileID: 7870435299151657604}
+  circleCollider: {fileID: 7870435299151657611}
   m_Animator: {fileID: 0}
   isFacingLeft: 0
   isFacingRight: 0
+  toKill: 0
 --- !u!114 &-3831670145629243480
 MonoBehaviour:
   m_ObjectHideFlags: 0

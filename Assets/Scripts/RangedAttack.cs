@@ -16,13 +16,15 @@ public class RangedAttack : MonoBehaviour
     void Start()
     {
         enemyMovement = this.GetComponent<EnemyMovement>();
+        enemyMovement.movementSpeed = 0f;
         StartCoroutine(attack());
     }
 
     IEnumerator attack()
     {
-        while (true)
+        while (!enemyMovement.toKill)
         {
+            if (!enemyMovement.isSleeping) { 
             if (playerInRange)
             {
                 if (enemyMovement.m_Animator)
@@ -50,6 +52,7 @@ public class RangedAttack : MonoBehaviour
                     }
                 }
             }
+            }
 
             yield return new WaitForSeconds(1.0f);
             
@@ -61,8 +64,11 @@ public class RangedAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SwitchBetweenAnimations();
-        CheckPlayerInRange();
+        if (!enemyMovement.toKill) 
+        { 
+            SwitchBetweenAnimations();
+            CheckPlayerInRange();
+        }
     }
     void FacePlayer()
     {

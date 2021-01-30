@@ -6,8 +6,9 @@ public class EnemyMovement : MonoBehaviour
 {
 
     public bool mustPatrol, mustSleep = true;
-    public bool rangedEnemy = false;    
-    bool turn, isPatroling, isSleeping = false;
+    public bool rangedEnemy = false;
+    public bool isSleeping = false;
+    bool turn, isPatroling = false;
     public bool isGrounded=false;
     public float healthPoints = 1f;
     public float movementSpeed = 200f;
@@ -16,16 +17,18 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask groundLayer;
     public GameObject Player;
     public Collider2D bodyCollider;
+    public Collider2D circleCollider;
     private float _speed = 0f;
     public Animator m_Animator;
     public bool isFacingLeft, isFacingRight;
+    public bool toKill = false;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        movementSpeed = GameManager.Instance.enemyMovementSpeed;
+        //movementSpeed = GameManager.Instance.enemyMovementSpeed;
         Player = GameObject.Find("Player");
         LoadParameters();
 
@@ -35,6 +38,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         handleFacing();
+        CheckForKll();
 
         if (isSleeping)
         {
@@ -54,7 +58,7 @@ public class EnemyMovement : MonoBehaviour
         {
             Player = GameObject.Find("Player");
         }
-        if (movementSpeed != 0)
+        if (movementSpeed != 0&&!toKill)
         {
             if (isFacingLeft)
             {
@@ -146,27 +150,39 @@ public class EnemyMovement : MonoBehaviour
     }
     public virtual void Hurt()
     {
-        //bool _isReduced;
+        Debug.Log("hurt");
+        if(healthPoints>0)
+            healthPoints = healthPoints - 1;
         if (healthPoints > 1)
-        {
-            if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("enemy2_reduced") )
             {
-                Destroy(this.gameObject);
+            
+            if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("enemy2_reduced") )
+                {
+                    m_Animator.SetTrigger("kill");
+                    Invoke("Kill", 0.3f);
             }
    
-
-
-                m_Animator.Play("Base Layer.enemy2_reduced", 0, 0);
+            m_Animator.Play("Base Layer.enemy2_reduced", 0, 0);
                 //_isReduced = true;
             //m_Animator.SetTrigger("got_hit");
-            //m_Animator.SetBool("already_hit", true);
+            
 
-        }
-        healthPoints = healthPoints - 1;
-        if (healthPoints == 0)
-            { 
-            Destroy(this.gameObject);
             }
+
+        
+        if (healthPoints == 0||GameManager.Instance.godModeTime!=0)
+                {
+                movementSpeed = 0f;
+                //m_Animator.Play("Base Layer.enemy3_death", 0, 0);
+                //m_Animator.SetBool("isAlive", false);
+                m_Animator.SetTrigger("kill");
+                bodyCollider.enabled = false;
+                circleCollider.enabled = false;
+                Invoke("Kill", 0.3f);
+                
+                //toKill = true;
+
+                }
     }
 
     void OnCollisionEnter2D(Collision2D bodyCollision)
@@ -220,6 +236,21 @@ public class EnemyMovement : MonoBehaviour
             Hurt();
             Hurt();
     }
+    }
+    void CheckForKll()
+    {
+        if (healthPoints == 0)
+        {
+            if (toKill&&!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("enemy3_death"))
+            {
+                Debug.Log("destroying enemy"); 
+                //Destroy(this.gameObject);
+            }
+        }
+    }
+    void Kill()
+    {
+        Destroy(this.gameObject);
     }
 
 }

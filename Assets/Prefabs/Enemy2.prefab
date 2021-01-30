@@ -283,9 +283,11 @@ MonoBehaviour:
     m_Bits: 256
   Player: {fileID: 0}
   bodyCollider: {fileID: 4463811052101797773}
+  circleCollider: {fileID: 4463811052101797772}
   m_Animator: {fileID: 0}
   isFacingLeft: 0
   isFacingRight: 0
+  toKill: 0
 --- !u!95 &4463811052101797760
 Animator:
   serializedVersion: 3
