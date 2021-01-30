@@ -50,9 +50,7 @@ public class StageManager : GenericSingletonClass<StageManager>
         if (_currentLevel < _lastLevelNumber)
         {
             _currentLevel += 1;
-            Debug.Log("Playing level " + _currentLevel);
-
-            SceneManager.LoadScene(levels[_currentLevel - 1]);
+            HandleRestartingCurrentLevel();
         }
         else
         {
