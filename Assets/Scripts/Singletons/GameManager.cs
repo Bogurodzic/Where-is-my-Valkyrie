@@ -8,7 +8,8 @@ public class GameManager : GenericSingletonClass<GameManager>
     public int axeQuantityPerPowerup = 5;
     public int maxLives = 3;
     public int godModeTime = 10;
-
+    public int coinsRequiredForAdditionalLife = 10;
+    
     public float enemyAttackRange = 9f;
     public float awakeRange = 10f;
     public float enemyMovementSpeed = -200f;
@@ -60,6 +61,15 @@ public class GameManager : GenericSingletonClass<GameManager>
     public void AddCoin()
     {
         _coins += 1;
+        CheckIfPlayerCanGetAdditionalLifeForCoins();
+    }
+
+    private void CheckIfPlayerCanGetAdditionalLifeForCoins()
+    {
+        if (_coins % coinsRequiredForAdditionalLife == 0)
+        {
+            AddLife();
+        }
     }
 
     public int GetCoins()
