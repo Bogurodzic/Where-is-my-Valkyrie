@@ -10,6 +10,8 @@ public class StageManager : GenericSingletonClass<StageManager>
     public String[] levels;
     public String mainMenu;
     public String gameOver;
+    public String choosingValkyrie;
+    public String endingScreen;
 
     public String prologText;
     public String epilogueText;
@@ -36,9 +38,9 @@ public class StageManager : GenericSingletonClass<StageManager>
         Debug.Log("Playing first level 1");
         _currentLevel = 1;
         LoadTransitionScene();
-        Invoke("RestartCurrentLevel", 6);
+        Invoke("HandleRestartingCurrentLevel", 12);
     }
-
+    
     private void LoadTransitionScene()
     {
         SceneManager.LoadScene("TransitionScene");
@@ -50,19 +52,41 @@ public class StageManager : GenericSingletonClass<StageManager>
         if (_currentLevel < _lastLevelNumber)
         {
             _currentLevel += 1;
-            Debug.Log("Playing level " + _currentLevel);
-
-            SceneManager.LoadScene(levels[_currentLevel - 1]);
+            HandleRestartingCurrentLevel();
         }
         else
         {
-            Debug.Log("Gameover ");
-
-            GoToGameOverScreen();
+            LoadChoosingValkyrie();
         }
     }
 
-    public void RestartCurrentLevel()
+    private void LoadChoosingValkyrie()
+    {
+        SceneManager.LoadScene(choosingValkyrie);
+    }
+
+    public void HandleEndingGame()
+    {
+        SceneTransitionSettings.NextTransitionScene = TransitionScene.Epilogue;
+        LoadTransitionScene();
+        Invoke("LoadEndingScreen", 12);
+    }
+
+    public void LoadEndingScreen()
+    {
+        SceneManager.LoadScene(endingScreen);
+        TrackManager.Instance.PlayEpilogueTheme();
+    }
+    
+
+    public void HandleRestartingCurrentLevel()
+    {
+        SceneTransitionSettings.NextTransitionScene = TransitionScene.Level;
+        LoadTransitionScene();
+        Invoke("RestartCurrentLevel", 3.5f);
+    }
+
+    private void RestartCurrentLevel()
     {
         SceneManager.LoadScene(levels[_currentLevel - 1]);
     }
@@ -70,6 +94,11 @@ public class StageManager : GenericSingletonClass<StageManager>
     public void GoToGameOverScreen()
     {
         SceneManager.LoadScene(gameOver);
+    }
+
+    public int GetCurrentLevel()
+    {
+        return _currentLevel;
     }
     
 }

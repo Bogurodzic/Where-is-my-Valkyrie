@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool isBlocked = false;
     public float movementSpeed = 5f;
     public float jumpForce = 2f;
     public bool isGrounded = false;
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown("space") && isGrounded == true)
+        if (Input.GetKeyDown("space") && isGrounded == true && !isBlocked)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
@@ -106,24 +107,28 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (Input.GetAxis("Horizontal") != 0)
+        if (!isBlocked)
         {
-            if (PlayerIsFacingRight())
+            if (Input.GetAxis("Horizontal") != 0)
             {
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
+                if (PlayerIsFacingRight())
+                {
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
+                }
+                else if (PlayerIsFacingLeft())
+                {
+                    transform.localRotation = Quaternion.Euler(0, 180, 0);
+                }
+                Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+                transform.position += movement * Time.deltaTime * movementSpeed;
+                _playerAnimator.SetFloat("Speed", 1);
             }
-            else if (PlayerIsFacingLeft())
+            else if (Input.GetAxis("Horizontal") == 0)
             {
-                transform.localRotation = Quaternion.Euler(0, 180, 0);
-            }
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-            transform.position += movement * Time.deltaTime * movementSpeed;
-            _playerAnimator.SetFloat("Speed", 1);
+                _playerAnimator.SetFloat("Speed", 0);
+            }        
         }
-        else if (Input.GetAxis("Horizontal") == 0)
-        {
-            _playerAnimator.SetFloat("Speed", 0);
-        }
+
 
     }
 

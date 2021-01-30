@@ -14,6 +14,6 @@ public class GameOver : MonoBehaviour
 
     public void Continue()
     {
-        StageManager.Instance.RestartCurrentLevel();
+        StageManager.Instance.HandleRestartingCurrentLevel();
     }
 }
