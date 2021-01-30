@@ -150,7 +150,7 @@ public class EnemyMovement : MonoBehaviour
     }
     public virtual void Hurt()
     {
-        Debug.Log("hurt");
+        //Debug.Log("hurt");
         if(healthPoints>0)
             healthPoints = healthPoints - 1;
         if (healthPoints > 1)
