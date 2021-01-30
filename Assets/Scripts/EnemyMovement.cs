@@ -6,7 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
 
     public bool mustPatrol, mustSleep = true;
-    public float AwakeRange = 5f;
+    public bool rangedEnemy = false;    
     bool turn, isPatroling, isSleeping = false;
     public bool isGrounded=false;
     public float healthPoints = 1f;
@@ -14,21 +14,19 @@ public class EnemyMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    protected GameObject Player;
+    public GameObject Player;
     public Collider2D bodyCollider;
     private float _speed = 0f;
-    Animator m_Animator;
+    public Animator m_Animator;
+    public bool isFacingLeft, isFacingRight;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Animator = gameObject.GetComponent<Animator>();
+        movementSpeed = GameManager.Instance.enemyMovementSpeed;
         Player = GameObject.Find("Player");
-        
-
-
         LoadParameters();
 
     }
@@ -36,23 +34,38 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        handleFacing();
+
         if (isSleeping)
         {
             CheckForAwake();
         }
 
-        if (!isSleeping) 
-        { 
+        if (!isSleeping)
+        {
             if (isPatroling)
             {
                 Patrol();
             }
 
-            rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
+
         }
-
-  
-
+        if (!Player)
+        {
+            Player = GameObject.Find("Player");
+        }
+        if (movementSpeed != 0)
+        {
+            if (isFacingLeft)
+            {
+                movementSpeed = GameManager.Instance.enemyMovementSpeed;
+            }
+            if (isFacingRight)
+            {
+                movementSpeed = GameManager.Instance.enemyMovementSpeed * -1;
+            }
+        }
+        rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, rb.velocity.y);
 
     }
     void FixedUpdate()
@@ -64,6 +77,7 @@ public class EnemyMovement : MonoBehaviour
                 turn = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
             }
         }
+        
     }
     void Patrol()
     {
@@ -97,20 +111,30 @@ public class EnemyMovement : MonoBehaviour
     }
     void SleepEnemy()
     {
+        if (!isSleeping) 
+        { 
         isSleeping = true;
-        _speed = movementSpeed;
         movementSpeed = 0f;
-        ;
+        }
     }
 
     void AwakeEnemy()
     {
-        movementSpeed = _speed;
         isSleeping = false;
+        if (isFacingLeft)
+        {
+            movementSpeed = GameManager.Instance.enemyMovementSpeed;
+        }
+        if (isFacingRight)
+        {
+            movementSpeed = GameManager.Instance.enemyMovementSpeed * -1;
+        }
+        
     }
     void LoadParameters()
     {
         _speed = movementSpeed;
+        m_Animator = gameObject.GetComponent<Animator>();
         if (mustPatrol)
         {
             isPatroling = true;
@@ -120,18 +144,25 @@ public class EnemyMovement : MonoBehaviour
             SleepEnemy();
         }
     }
-    public void Hurt()
+    public virtual void Hurt()
     {
-        if (healthPoints > 2)
+        //bool _isReduced;
+        if (healthPoints > 1)
         {
-           
+            if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("enemy2_reduced") )
+            {
+                Destroy(this.gameObject);
+            }
+   
 
-            m_Animator.SetTrigger("got_hit");
-            m_Animator.SetBool("already_hit", true);
-            
+
+                m_Animator.Play("Base Layer.enemy2_reduced", 0, 0);
+                //_isReduced = true;
+            //m_Animator.SetTrigger("got_hit");
+            //m_Animator.SetBool("already_hit", true);
+
         }
         healthPoints = healthPoints - 1;
-        //Debug.Log(healthPoints);
         if (healthPoints == 0)
             { 
             Destroy(this.gameObject);
@@ -155,8 +186,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (Player)
         {
-            float distanceToPlayer = transform.position.x - Player.transform.position.x;
-            if (distanceToPlayer < AwakeRange && isSleeping)
+            float _distanceToPlayer = transform.position.x - Player.transform.position.x;
+            if (_distanceToPlayer < GameManager.Instance.awakeRange && isSleeping)
             {
                 AwakeEnemy();
 
@@ -164,8 +195,36 @@ public class EnemyMovement : MonoBehaviour
         }
 
     }
+    public void handleFacing()
+    {
+        GameObject _front = gameObject.transform.GetChild(0).gameObject;
+        GameObject _back = gameObject.transform.GetChild(1).gameObject;
 
+            if (_front.transform.position.x > _back.transform.position.x)
+            {
+                isFacingRight = true;
+                isFacingLeft = false;
+
+            }
+            else
+            {
+                isFacingRight = false;
+                isFacingLeft = true;
+            }
+        
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "AxeProjectile") { 
+            Hurt();
+            Hurt();
+            Hurt();
+    }
+    }
 
 }
+
+
+
 
 

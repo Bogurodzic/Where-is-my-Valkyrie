@@ -8,6 +8,13 @@ public class GameManager : GenericSingletonClass<GameManager>
     public int axeQuantityPerPowerup = 5;
     public int maxLives = 3;
     public int godModeTime = 10;
+
+    public float enemyAttackRange = 9f;
+    public float awakeRange = 10f;
+    public float enemyMovementSpeed = -200f;
+    public float fireBallProjectileSpeed = 1f;
+
+
     private int _axeQuantity = 0;
     private int _coins = 0;
     private int _currentLives;

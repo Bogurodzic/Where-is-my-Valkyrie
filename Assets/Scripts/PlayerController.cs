@@ -151,12 +151,14 @@ public class PlayerController : MonoBehaviour
     public void EnableGodMode()
     {
         _godModeEnabled = true;
+        Debug.Log("godmode ON");
         GameManager.Instance.EnableGodMode();
     }
 
     public void DisableGodMode()
     {
         _godModeEnabled = false;
+        Debug.Log("godmode OFF");
     }
     
     
@@ -181,12 +183,33 @@ public class PlayerController : MonoBehaviour
                     velocity.y = jumpForce;
                     rb.velocity = velocity;
                     enemy.Hurt();
+                    if (_godModeEnabled)
+                    {
+                        enemy.Hurt();
+                    }
                 }
                 else
                 {
-                    Hurt();
+
+                    if (_godModeEnabled)
+                    {
+                        enemy.Hurt();
+                    }
+                    else
+                    {
+                        Hurt();
+                    }
                 }
             }
         }
+
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!_godModeEnabled && collision.gameObject.tag == "Projectile")
+        {
+            Hurt();
+        }
+            
     }
 }
