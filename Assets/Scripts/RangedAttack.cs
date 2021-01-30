@@ -21,15 +21,12 @@ public class RangedAttack : MonoBehaviour
 
     IEnumerator attack()
     {
-        Debug.Log("attack on");
         while (true)
         {
-            Debug.Log("while on");
             if (playerInRange)
             {
                 if (enemyMovement.m_Animator)
                 {
-                    Debug.Log("Jest in range");
                     enemyMovement.m_Animator.SetBool("isCasting", true);
                     handleCastFireball();
                 }  
@@ -93,7 +90,6 @@ public class RangedAttack : MonoBehaviour
     }
     void handleCastFireball()
     {
-        Debug.Log("rzucam bolta");
         FacePlayer();
         enemyMovement.movementSpeed = 0f;
         enemyMovement.m_Animator.Play("Base Layer.enemy3_charge",0,0);

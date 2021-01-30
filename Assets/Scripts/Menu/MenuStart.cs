@@ -19,6 +19,11 @@ public class MenuStart : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Scenes/SampleScene1");
+        StageManager.Instance.GoToFirstStage();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

@@ -18,22 +18,43 @@ public class PlayerController : MonoBehaviour
     private bool _axeModeEnabled;
     private bool _godModeEnabled;
 
+    private bool _deathInitialised;
+    private bool _deathCompleted;
+    private SpriteRenderer _sprite;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         LoadComponents();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Jump();
         HandleAxeMode();
-
+        //_sprite.color = new Color (0, 0, 0, 0);
+        
         if (_godModeEnabled && GameManager.Instance.GetRemainingGodModeTime() == 0)
         {
             DisableGodMode();
-        } 
+        }
+
+        if (_deathInitialised && _deathCompleted)
+        {
+            if (GameManager.Instance.TryRespawnPlayer())
+            {
+                RespawnPlayer();
+                _deathInitialised = false;
+                _deathCompleted = false;
+                _playerAnimator.SetBool("deathInitialised", false);
+            } else
+            {
+                StageManager.Instance.GoToGameOverScreen();
+                _deathInitialised = false;
+                _deathCompleted = false;
+                _playerAnimator.SetBool("deathInitialised", false);
+            }
+        }
 
     }
     void FixedUpdate()
@@ -44,6 +65,7 @@ public class PlayerController : MonoBehaviour
     private void LoadComponents()
     {
         _playerAnimator = GetComponent<Animator>();
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     void Jump()
@@ -161,16 +183,38 @@ public class PlayerController : MonoBehaviour
     public void DisableGodMode()
     {
         _godModeEnabled = false;
-        GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
-
     }
     
     
 
     public void Hurt()
     {
-        Debug.Log("Player.Hurt()");
+        InitDeath();
     }
+
+    private void InitDeath()
+    {
+        if (!_deathInitialised)
+        {
+            _playerAnimator.Play("Base Layer.player_death", 0, 0);
+            _deathInitialised = true;
+            _playerAnimator.SetBool("deathInitialised", true);
+            Invoke("CompleteDeath", 2);       
+        }
+    }
+
+    private void CompleteDeath()
+    {
+        _deathCompleted = true;
+        _playerAnimator.SetBool("deathInitialised", false);
+
+    }
+
+    public void RespawnPlayer()
+    {
+        GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
+    }
+    
 
     void OnCollisionEnter2D(Collision2D collision)
     {

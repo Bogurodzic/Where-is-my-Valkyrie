@@ -9,11 +9,11 @@ public class GameOver : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        StageManager.Instance.GoToMenu();
     }
 
     public void Continue()
     {
-        SceneManager.LoadScene("Scenes/MainMenu");
+        StageManager.Instance.RestartCurrentLevel();
     }
 }
