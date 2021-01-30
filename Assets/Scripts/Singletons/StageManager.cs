@@ -54,10 +54,14 @@ public class StageManager : GenericSingletonClass<StageManager>
         }
         else
         {
-            Debug.Log("Gameover ");
-
-            GoToGameOverScreen();
+            HandleEndingGame();
         }
+    }
+
+    private void HandleEndingGame()
+    {
+        SceneTransitionSettings.NextTransitionScene = TransitionScene.Epilogue;
+        LoadTransitionScene();
     }
 
     public void HandleRestartingCurrentLevel()

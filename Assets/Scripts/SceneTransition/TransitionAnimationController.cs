@@ -31,11 +31,18 @@ public class TransitionAnimationController : MonoBehaviour
             string levelName = "level" + StageManager.Instance.GetCurrentLevel();
             _animator.SetBool(levelName, true);
         }
+
+        if (SceneTransitionSettings.NextTransitionScene == TransitionScene.Epilogue)
+        {
+            ResetAnimationVariables();
+            _animator.SetBool("isEpilogue", true);
+        }
     }
 
     private void ResetAnimationVariables()
     {
         _animator.SetBool("isPrologue", false);
+        _animator.SetBool("isEpilogue", false);
         _animator.SetBool("level1", false);
         _animator.SetBool("level2", false);
         _animator.SetBool("level3", false);
