@@ -14,4 +14,9 @@ public class AxeProjectile : MonoBehaviour
     {
         transform.Translate(Vector3.right * Time.deltaTime * projectileSpeed);
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!(collision.gameObject.tag == "Player"))
+            Destroy(this.gameObject);
+    }
 }

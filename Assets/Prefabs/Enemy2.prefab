@@ -272,16 +272,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mustPatrol: 0
   mustSleep: 1
-  AwakeRange: 5
+  rangedEnemy: 0
   isGrounded: 0
-  healthPoints: 3
+  healthPoints: 50
   movementSpeed: -200
   rb: {fileID: 4463811052101797774}
   groundCheck: {fileID: 4463811051412862245}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  Player: {fileID: 0}
   bodyCollider: {fileID: 4463811052101797773}
+  m_Animator: {fileID: 0}
+  isFacingLeft: 0
+  isFacingRight: 0
 --- !u!95 &4463811052101797760
 Animator:
   serializedVersion: 3

@@ -7,7 +7,9 @@ TagManager:
   - Platform
   - Ground
   - Enemy
-  - RespawnPoint
+  - AxeProjectile
+  - Undefined
+  - Projectile
   layers:
   - Default
   - TransparentFX

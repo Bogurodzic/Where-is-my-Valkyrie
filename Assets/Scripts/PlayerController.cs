@@ -155,12 +155,14 @@ public class PlayerController : MonoBehaviour
             _godModeEnabled = true;
             GameManager.Instance.EnableGodMode();        
         }
+
     }
 
     public void DisableGodMode()
     {
         _godModeEnabled = false;
         GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
+
     }
     
     
@@ -185,12 +187,33 @@ public class PlayerController : MonoBehaviour
                     velocity.y = jumpForce;
                     rb.velocity = velocity;
                     enemy.Hurt();
+                    if (_godModeEnabled)
+                    {
+                        enemy.Hurt();
+                    }
                 }
                 else
                 {
-                    Hurt();
+
+                    if (_godModeEnabled)
+                    {
+                        enemy.Hurt();
+                    }
+                    else
+                    {
+                        Hurt();
+                    }
                 }
             }
         }
+
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!_godModeEnabled && collision.gameObject.tag == "Projectile")
+        {
+            Hurt();
+        }
+            
     }
 }
