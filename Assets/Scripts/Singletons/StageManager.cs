@@ -36,9 +36,9 @@ public class StageManager : GenericSingletonClass<StageManager>
         Debug.Log("Playing first level 1");
         _currentLevel = 1;
         LoadTransitionScene();
-        Invoke("RestartCurrentLevel", 6);
+        Invoke("HandleRestartingCurrentLevel", 6);
     }
-
+    
     private void LoadTransitionScene()
     {
         SceneManager.LoadScene("TransitionScene");
@@ -62,7 +62,14 @@ public class StageManager : GenericSingletonClass<StageManager>
         }
     }
 
-    public void RestartCurrentLevel()
+    public void HandleRestartingCurrentLevel()
+    {
+        SceneTransitionSettings.NextTransitionScene = TransitionScene.Level;
+        LoadTransitionScene();
+        Invoke("RestartCurrentLevel", 3.5f);
+    }
+
+    private void RestartCurrentLevel()
     {
         SceneManager.LoadScene(levels[_currentLevel - 1]);
     }
@@ -70,6 +77,11 @@ public class StageManager : GenericSingletonClass<StageManager>
     public void GoToGameOverScreen()
     {
         SceneManager.LoadScene(gameOver);
+    }
+
+    public int GetCurrentLevel()
+    {
+        return _currentLevel;
     }
     
 }

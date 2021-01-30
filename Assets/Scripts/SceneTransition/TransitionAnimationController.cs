@@ -21,7 +21,23 @@ public class TransitionAnimationController : MonoBehaviour
     {
         if (SceneTransitionSettings.NextTransitionScene == TransitionScene.Prologue)
         {
+            ResetAnimationVariables();
             _animator.SetBool("isPrologue", true);
         }
+
+        if (SceneTransitionSettings.NextTransitionScene == TransitionScene.Level)
+        {
+            ResetAnimationVariables();
+            string levelName = "level" + StageManager.Instance.GetCurrentLevel();
+            _animator.SetBool(levelName, true);
+        }
+    }
+
+    private void ResetAnimationVariables()
+    {
+        _animator.SetBool("isPrologue", false);
+        _animator.SetBool("level1", false);
+        _animator.SetBool("level2", false);
+        _animator.SetBool("level3", false);
     }
 }
