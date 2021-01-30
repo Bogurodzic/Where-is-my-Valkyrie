@@ -21,26 +21,35 @@ public class RangedAttack : MonoBehaviour
 
     IEnumerator attack()
     {
+        Debug.Log("attack on");
         while (true)
         {
+            Debug.Log("while on");
             if (playerInRange)
             {
-                enemyMovement.m_Animator.SetBool("isCasting", true);   
-                handleCastFireball();
+                if (enemyMovement.m_Animator)
+                {
+                    Debug.Log("Jest in range");
+                    enemyMovement.m_Animator.SetBool("isCasting", true);
+                    handleCastFireball();
+                }  
             }
             if (!playerInRange)
             {
-                enemyMovement.m_Animator.SetBool("isCasting", false);
-                if (enemyMovement.movementSpeed==0)
+                if (enemyMovement.m_Animator)
                 {
-                    FacePlayer();
-                    if (enemyMovement.isFacingLeft)
+                    enemyMovement.m_Animator.SetBool("isCasting", false);
+                    if (enemyMovement.movementSpeed == 0)
                     {
-                        enemyMovement.movementSpeed = GameManager.Instance.enemyMovementSpeed;
-                    }
-                    if (enemyMovement.isFacingRight)
-                    {
-                        enemyMovement.movementSpeed = GameManager.Instance.enemyMovementSpeed * -1;
+                        FacePlayer();
+                        if (enemyMovement.isFacingLeft)
+                        {
+                            enemyMovement.movementSpeed = GameManager.Instance.enemyMovementSpeed;
+                        }
+                        if (enemyMovement.isFacingRight)
+                        {
+                            enemyMovement.movementSpeed = GameManager.Instance.enemyMovementSpeed * -1;
+                        }
                     }
                 }
             }
@@ -57,7 +66,6 @@ public class RangedAttack : MonoBehaviour
     {
         SwitchBetweenAnimations();
         CheckPlayerInRange();
-
     }
     void FacePlayer()
     {
@@ -85,7 +93,7 @@ public class RangedAttack : MonoBehaviour
     }
     void handleCastFireball()
     {
-        //Debug.Log("rzucam bolta");
+        Debug.Log("rzucam bolta");
         FacePlayer();
         enemyMovement.movementSpeed = 0f;
         enemyMovement.m_Animator.Play("Base Layer.enemy3_charge",0,0);
