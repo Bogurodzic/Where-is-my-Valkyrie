@@ -23,7 +23,7 @@ public class EnemyMovement : MonoBehaviour
     public bool isFacingLeft, isFacingRight;
     public bool toKill = false;
 
-
+    private AudioSource _audio;
 
     // Start is called before the first frame update
     void Start()
@@ -139,6 +139,7 @@ public class EnemyMovement : MonoBehaviour
     {
         _speed = movementSpeed;
         m_Animator = gameObject.GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
         if (mustPatrol)
         {
             isPatroling = true;
@@ -151,6 +152,7 @@ public class EnemyMovement : MonoBehaviour
     public virtual void Hurt()
     {
         //Debug.Log("hurt");
+        _audio.Play();
         if(healthPoints>0)
             healthPoints = healthPoints - 1;
         if (healthPoints > 1)

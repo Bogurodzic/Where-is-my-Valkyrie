@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     public GameObject axePrefab;
 
     private Animator _playerAnimator;
-
+    private AudioSource _audio;
+    
     private float _lastPlayerYPosition;
 
     private bool _axeModeEnabled;
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private void LoadComponents()
     {
         _playerAnimator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
     }
 
     void Jump()
@@ -193,6 +195,7 @@ public class PlayerController : MonoBehaviour
 
     public void Hurt()
     {
+        _audio.Play();
         InitDeath();
     }
 
@@ -200,6 +203,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!_deathInitialised)
         {
+            isBlocked = true;
             _playerAnimator.Play("Base Layer.player_death", 0, 0);
             _deathInitialised = true;
             _playerAnimator.SetBool("deathInitialised", true);
@@ -216,6 +220,7 @@ public class PlayerController : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        isBlocked = false;
         GameObject.Find("RespawnPoint").GetComponent<RespawnPoint>().RespawnPlayerOnPoint(gameObject);
     }
     
