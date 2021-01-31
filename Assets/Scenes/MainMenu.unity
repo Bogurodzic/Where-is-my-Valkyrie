@@ -1580,6 +1580,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7624530634625607702, guid: 6a0c54054e6c24320b604b22c762d732,
+        type: 3}
+      propertyPath: maxLives
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624530634625607702, guid: 6a0c54054e6c24320b604b22c762d732,
+        type: 3}
+      propertyPath: axeQuantityPerPowerup
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624530634625607702, guid: 6a0c54054e6c24320b604b22c762d732,
+        type: 3}
+      propertyPath: coinsRequiredForAdditionalLife
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7986145877867236171, guid: 6a0c54054e6c24320b604b22c762d732,
         type: 3}
       propertyPath: m_Name
