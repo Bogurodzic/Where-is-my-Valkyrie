@@ -131,5 +131,14 @@ public class GameManager : GenericSingletonClass<GameManager>
         }
     }
 
+    public void ResetGame()
+    {
+        _currentLives = maxLives;
+        _axeQuantity = 0;
+        _coins = 0;
+        _currentGodModeTime = 0;
+        _timer = 0;
+    }
+
     
 }

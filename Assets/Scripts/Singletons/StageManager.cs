@@ -88,6 +88,7 @@ public class StageManager : GenericSingletonClass<StageManager>
     public void HandleRestartingCurrentLevel()
     {
         SceneTransitionSettings.NextTransitionScene = TransitionScene.Level;
+        GameManager.Instance.ResetGame();
         LoadTransitionScene();
         Invoke("RestartCurrentLevel", 2.5f);
     }
