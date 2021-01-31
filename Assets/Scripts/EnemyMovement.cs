@@ -153,8 +153,11 @@ public class EnemyMovement : MonoBehaviour
     {
         //Debug.Log("hurt");
         _audio.Play();
-        if(healthPoints>0)
+        if (healthPoints > 0)
+        {
             healthPoints = healthPoints - 1;
+        }
+        Debug.Log("minus HP");
         if (healthPoints > 1)
             {
             

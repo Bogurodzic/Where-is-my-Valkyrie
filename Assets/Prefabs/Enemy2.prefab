@@ -276,7 +276,7 @@ MonoBehaviour:
   rangedEnemy: 0
   isSleeping: 0
   isGrounded: 0
-  healthPoints: 50
+  healthPoints: 3
   movementSpeed: -200
   rb: {fileID: 4463811052101797774}
   groundCheck: {fileID: 4463811051412862245}
