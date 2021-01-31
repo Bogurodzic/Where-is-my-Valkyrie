@@ -4,6 +4,7 @@ namespace SceneTransition
     {
         Prologue,
         Epilogue,
-        Level
+        Level,
+        Controls
     }
 }
