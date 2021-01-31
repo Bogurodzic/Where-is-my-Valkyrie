@@ -2365,7 +2365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 755264557, guid: 59d414e0a22b44e39a180e1f7fc1119d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5011215
+      value: 2.5015278
       objectReference: {fileID: 0}
     - target: {fileID: 755264557, guid: 59d414e0a22b44e39a180e1f7fc1119d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -43302,6 +43302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UsedByEffector
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219995943111393809, guid: 40cd8e5b42c824cdfa70ada8c286d7e1,
+        type: 3}
+      propertyPath: iceRespawnTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2219995943111393810, guid: 40cd8e5b42c824cdfa70ada8c286d7e1,
         type: 3}
