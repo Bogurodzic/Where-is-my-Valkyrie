@@ -19,8 +19,7 @@ public class StageManager : GenericSingletonClass<StageManager>
     
     private int _currentLevel = 1;
     private int _lastLevelNumber;
-
-
+    
     public void Start()
     {
         _lastLevelNumber = levels.Length;
@@ -31,18 +30,25 @@ public class StageManager : GenericSingletonClass<StageManager>
         SceneManager.LoadScene(mainMenu);
     }
 
+    public void GoToControls()
+    {
+        SceneTransitionSettings.NextTransitionScene = TransitionScene.Controls;
+        LoadTransitionScene();
+    }
+
     public void GoToFirstStage()
     {
-        SceneTransitionSettings.NextTransitionScene = TransitionScene.Prologue;
-        
-        Debug.Log("Playing first level 1");
-        _currentLevel = 1;
+       SceneTransitionSettings.NextTransitionScene = TransitionScene.Prologue;
+        _currentLevel = 1; 
         LoadTransitionScene();
-        Invoke("HandleRestartingCurrentLevel", 12);
     }
     
     private void LoadTransitionScene()
     {
+        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu");
+
         SceneManager.LoadScene("TransitionScene");
     }
     
@@ -62,6 +68,7 @@ public class StageManager : GenericSingletonClass<StageManager>
 
     private void LoadChoosingValkyrie()
     {
+        TrackManager.Instance.PlayChoosingValkyrie();
         SceneManager.LoadScene(choosingValkyrie);
     }
 
@@ -69,7 +76,6 @@ public class StageManager : GenericSingletonClass<StageManager>
     {
         SceneTransitionSettings.NextTransitionScene = TransitionScene.Epilogue;
         LoadTransitionScene();
-        Invoke("LoadEndingScreen", 12);
     }
 
     public void LoadEndingScreen()
@@ -83,7 +89,12 @@ public class StageManager : GenericSingletonClass<StageManager>
     {
         SceneTransitionSettings.NextTransitionScene = TransitionScene.Level;
         LoadTransitionScene();
-        Invoke("RestartCurrentLevel", 3.5f);
+        Invoke("RestartCurrentLevel", 2.5f);
+    }
+
+    public void PlayLevel()
+    {
+        RestartCurrentLevel();
     }
 
     private void RestartCurrentLevel()

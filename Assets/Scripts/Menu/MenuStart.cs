@@ -19,7 +19,7 @@ public class MenuStart : MonoBehaviour
 
     public void StartGame()
     {
-        StageManager.Instance.GoToFirstStage();
+        StageManager.Instance.GoToControls();
     }
 
     public void ExitGame()

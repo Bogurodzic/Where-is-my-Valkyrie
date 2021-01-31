@@ -7,6 +7,8 @@ public class TrackManager :  GenericSingletonClass<TrackManager>
     private AudioSource _audio;
     public AudioClip mainTheme;
     public AudioClip epilogueTheme;
+    public AudioClip choosingValkyrie;
+    
     void Start()
     {
         LoadComponents();
@@ -30,6 +32,14 @@ public class TrackManager :  GenericSingletonClass<TrackManager>
     {
         _audio.Stop();
         _audio.clip = epilogueTheme;
+        _audio.loop = true;
+        _audio.Play();
+    }
+    
+    public void PlayChoosingValkyrie()
+    {
+        _audio.Stop();
+        _audio.clip = choosingValkyrie;
         _audio.loop = true;
         _audio.Play();
     }

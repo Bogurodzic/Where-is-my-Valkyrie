@@ -11,6 +11,8 @@ public class IceTile : MonoBehaviour
     private Tilemap _tilemap;
     private LinkedList<Vector3Int> _alreadyDestroyedTilemaps = new LinkedList<Vector3Int>();
 
+    public float iceRespawnTime = 5f;
+    public Tile ice1;
     public Tile ice2;
     public Tile ice3;
     public Tile ice4;
@@ -93,7 +95,8 @@ public class IceTile : MonoBehaviour
         _tilemap.SetTile(cellPosition, ice4);
         yield return new WaitForSeconds(0.15f);
         _tilemap.SetTile(cellPosition, null);
-
+        yield return new WaitForSeconds(iceRespawnTime);
+        _tilemap.SetTile(cellPosition, ice1);
     }
 
     private void LoadComponents()

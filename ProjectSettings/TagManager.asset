@@ -10,6 +10,8 @@ TagManager:
   - AxeProjectile
   - Undefined
   - Projectile
+  - RespawnPoint
+  - Collectible
   layers:
   - Default
   - TransparentFX

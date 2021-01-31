@@ -6871,6 +6871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f5164a47afb44b0ab05aa334970795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iceRespawnTime: 0
+  ice1: {fileID: 11400000, guid: 9f0222a746f2f43b4b6b744644b0cd27, type: 2}
   ice2: {fileID: 11400000, guid: f4504070ea76f45338d4eae91920c4c0, type: 2}
   ice3: {fileID: 11400000, guid: 1dfca23055315423c994b29b82500f12, type: 2}
   ice4: {fileID: 11400000, guid: e0dd7541c803047d2896235f9fe38340, type: 2}
