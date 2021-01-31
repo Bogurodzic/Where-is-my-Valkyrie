@@ -12,6 +12,7 @@ TagManager:
   - Projectile
   - RespawnPoint
   - Collectible
+  - Deadzone
   layers:
   - Default
   - TransparentFX
