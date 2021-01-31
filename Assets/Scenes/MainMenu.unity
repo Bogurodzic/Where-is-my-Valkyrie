@@ -1654,6 +1654,11 @@ PrefabInstance:
       propertyPath: epilogueTheme
       value: 
       objectReference: {fileID: 8300000, guid: 35b62ef05daf44344ba56ef8bb847ba4, type: 3}
+    - target: {fileID: 5408111134183168483, guid: daea60177362c4eef98a1af3086016a6,
+        type: 3}
+      propertyPath: choosingValkyrie
+      value: 
+      objectReference: {fileID: 8300000, guid: d347ad6cf72c8413399a600ff3d1ec85, type: 3}
     - target: {fileID: 5408111134183168509, guid: daea60177362c4eef98a1af3086016a6,
         type: 3}
       propertyPath: m_Name
